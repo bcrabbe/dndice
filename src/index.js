@@ -10,13 +10,21 @@ app.get('/', (req, res) => {
 <script type="text/javascript" >
 const display = (log) => {
   const textArea = document.getElementById("log")
-  textArea.textContent = log
+  textArea.innerHTML = ""
+  const rollText = log.map(({ name, rolled, die }) => document.createTextNode(\`\$\{name\} rolled \$\{die\} for \$\{rolled\}.\n\`))
+  rollText.forEach((textNode) => {
+    textArea.appendChild(textNode)
+    textArea.appendChild( document.createElement("br"))
+  })
 }
 
+const getName = () => document.getElementById("name").value
+
 const roll = () => {
+  const name = getName()
   const request = new Request('/roll', {
     method: 'POST',
-    body: JSON.stringify({ die: 'd20' }),
+    body: JSON.stringify({ die: 'd20', name }),
     headers: new Headers({
       'Content-Type': 'application/json'
     })
@@ -59,9 +67,11 @@ const poll = () => {
 
 poll()
 setInterval(poll, 1000)
+
 </script>
 <div>
-   <input type="button" value="Click me" onClick='roll()' id='roller'>
+   <input id="name" type=text placeholder="enter your name.."/>
+   <input type="button" value="Click me" onClick='roll()' id='roller' />
    <div id="log" />
 </div>`)
 })
@@ -69,9 +79,9 @@ setInterval(poll, 1000)
 const rollLog = []
 
 app.post('/roll', (req, res) => {
-  const { body: { die } } = req
+  const { body: { die, name } } = req
   const rolled = roll(die)
-  rollLog.push(rolled)
+  rollLog.push({ name, rolled, die })
   res.send({result: rolled, log: rollLog})
 })
 
