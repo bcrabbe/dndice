@@ -100,7 +100,7 @@ setInterval(poll, 1000)
 </div>`)
 })
 
-var rollLog = []
+let rollLog = []
 
 app.post('/roll', (req, res) => {
   const { body: { die, name } } = req
