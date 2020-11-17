@@ -115,7 +115,7 @@ app.get('/poll', (req, res) => {
 })
 
 app.post('/clearLog', (req, res) => {
-  req = clearLog()
+clearLog()
 })
 
 const roll = (n) => {
