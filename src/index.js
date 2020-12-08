@@ -89,7 +89,7 @@ poll()
 setInterval(poll, 1000)
 
 </script>
-<div>  <label for="name">Enter your name:</label </div>
+<div>  <label for="name">Enter your name:</label> </div>
 <div>
    <input id="name" type=text />
    <input type="button" value="Roll D20" onClick='roll("d20")' id='roller' />
