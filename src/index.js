@@ -89,14 +89,16 @@ poll()
 setInterval(poll, 1000)
 
 </script>
-<div>  <label for="name">Enter your name:</label> </div>
 <div>
-   <input id="name" type=text />
-   <input type="button" value="Roll D20" onClick='roll("d20")' id='roller' />
-   <input type="button" value="Roll D8" onClick='roll("d8")' id='roller' />
-   <input type="button" value="Roll D6" onClick='roll("d6")' id='roller' />
-   <input type="button" value="Clear Log" onClick='clearLog();poll()' id='roller' />
-   <div id="log" />
+  <label for="name">Enter your name:</label>
+</div>
+<div>
+  <input id="name" type=text />
+  <input type="button" value="Roll D20" onClick='roll("d20")' id='roller' />
+  <input type="button" value="Roll D8" onClick='roll("d8")' id='roller' />
+  <input type="button" value="Roll D6" onClick='roll("d6")' id='roller' />
+  <input type="button" value="Clear Log" onClick='clearLog()' id='roller' />
+  <div id="log" />
 </div>`)
 })
 
@@ -127,12 +129,6 @@ const roll = (n) => {
 const clearLog = () => {
   rollLog = [];
 }
-
-const getTime = () => {
-  const dateNow = new Date()
-  return dateNow.getHours() + ":" + dateNow.getMinutes()
-}
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
