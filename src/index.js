@@ -73,7 +73,7 @@ const clearLog = () => {
   fetch(request)
     .then(response => {
       if (response.status === 200) {
-        return response.json()
+        display([])
       } else {
         throw new Error('Something went wrong on api server!')
       }
