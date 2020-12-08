@@ -11,11 +11,17 @@ app.get('/', (req, res) => {
 const display = (log) => {
   const textArea = document.getElementById("log")
   textArea.innerHTML = ""
-  const rollText = log.map(({ name, rolled, die }) => document.createTextNode(\`\$\{name\} rolled \$\{die\} for \$\{rolled\}.\n\`))
-  rollText.forEach((textNode) => {
-    textArea.appendChild(textNode)
-    textArea.appendChild( document.createElement("br"))
-  })
+  const rollText = log.map(
+    ({ name, rolled, die }) => {
+      return document.createTextNode(\`\$\{name\} rolled \$\{die\} for \$\{rolled\}.\n\`)
+    }
+  )
+  rollText.forEach(
+    (textNode) => {
+      textArea.appendChild(textNode)
+      textArea.appendChild( document.createElement("br"))
+    }
+  )
 }
 
 const getName = () => document.getElementById("name").value
@@ -46,7 +52,7 @@ const roll = (n) => {
 }
 
 const poll = () => {
-  const request = new Request('/poll', {
+  const request = new Request('/log', {
     method: 'GET',
   })
 
@@ -66,8 +72,8 @@ const poll = () => {
 }
 
 const clearLog = () => {
-  const request = new Request('/clearLog', {
-    method: 'POST',
+  const request = new Request('/log', {
+    method: 'DELETE',
   })
 
   fetch(request)
@@ -107,22 +113,21 @@ let rollLog = []
 app.post('/roll', (req, res) => {
   const { body: { die, name } } = req
   const rolled = roll(die)
-  const time = getTime()
   rollLog.push({ name, rolled, die })
   res.send({result: rolled, log: rollLog})
 })
 
-app.get('/poll', (req, res) => {
+app.get('/log', (req, res) => {
   res.send({log: rollLog})
 })
 
-app.post('/clearLog', (req, res) => {
-clearLog()
+app.delete('/log', (req, res) => {
+   clearLog();
+   res.sendStatus(200);
 })
 
 const roll = (n) => {
   [rolls, outOf] = n.split('d')
-  console.log(rolls)
   return Math.floor(Math.random() * Math.floor(parseInt(outOf))) + 1
 }
 
