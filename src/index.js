@@ -101,8 +101,10 @@ setInterval(poll, 1000)
 <div>
   <input id="name" type=text />
   <input type="button" value="Roll D20" onClick='roll("d20")' id='roller' />
+  <input type="button" value="Roll D10" onClick='roll("d10")' id='roller' />
   <input type="button" value="Roll D8" onClick='roll("d8")' id='roller' />
   <input type="button" value="Roll D6" onClick='roll("d6")' id='roller' />
+  <input type="button" value="Roll D4" onClick='roll("d4")' id='roller' />
   <input type="button" value="Clear Log" onClick='clearLog()' id='roller' />
   <div id="log" />
 </div>`)
